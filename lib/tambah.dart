@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class TambahPage extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class TambahPage extends StatefulWidget {
 
 class _TambahPageState extends State<TambahPage> {
   File? image;
+  TextEditingController judulController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
+
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -18,6 +22,35 @@ class _TambahPageState extends State<TambahPage> {
       setState(() => this.image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
+    }
+  }
+
+  Future<void> tambahLaporan() async {
+    if (image == null ||
+        judulController.text.isEmpty ||
+        statusController.text.isEmpty) {
+      print('Please fill all fields');
+      return;
+    }
+
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('http://192.168.0.222/myapp/add.php'));
+    request.fields['judul'] = judulController.text;
+    request.fields['status'] = statusController.text;
+    request.fields['tanggal'] = DateTime.now().toString();
+    request.files.add(await http.MultipartFile.fromPath('gambar', image!.path));
+
+    var response = await request.send();
+
+    if (response.statusCode == 201) {
+      print('Laporan berhasil ditambahkan');
+      setState(() {
+        image = null;
+        judulController.clear();
+        statusController.clear();
+      });
+    } else {
+      print('Failed to add laporan: ${response.reasonPhrase}');
     }
   }
 
@@ -54,40 +87,31 @@ class _TambahPageState extends State<TambahPage> {
               margin: EdgeInsets.only(bottom: 10),
               color: Colors.grey[300],
               child: Center(
-                child: Text(
-                  'Judul Laporan',
-                  textAlign: TextAlign.center,
+                child: TextField(
+                  controller: judulController,
+                  decoration: InputDecoration(
+                    hintText: 'Judul Laporan',
+                  ),
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  width: 140,
-                  height: 50,
-                  margin: EdgeInsets.only(left: 29, bottom: 20),
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: Text(
-                      'Action',
-                      textAlign: TextAlign.center,
-                    ),
+            Container(
+              width: 300,
+              height: 50,
+              margin: EdgeInsets.only(bottom: 10),
+              color: Colors.grey[300],
+              child: Center(
+                child: TextField(
+                  controller: statusController,
+                  decoration: InputDecoration(
+                    hintText: 'Status',
                   ),
                 ),
-                Container(
-                  width: 140,
-                  height: 50,
-                  margin: EdgeInsets.only(right: 29, bottom: 20),
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: Text(
-                      '28 May 2024',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: tambahLaporan,
+              child: Text('Tambah Laporan'),
             ),
           ],
         ),
