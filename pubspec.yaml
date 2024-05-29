@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.3
   postgres: ^2.1.0
   image_picker: ^0.8.4+2
+  permission_handler: ^8.1.6
 
 
   # The following adds the Cupertino Icons font to your application.

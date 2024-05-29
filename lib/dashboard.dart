@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'api_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DashboardWidget extends StatelessWidget {
+  final ApiService _apiService = ApiService();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Dashboard'),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _apiService.fetchData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No data found'));
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final item = snapshot.data![index];
+              final imagePath = item['imagePath'];
+
+              return ListTile(
+                leading: Image.network(
+                  imagePath,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                ),
+                title: Text(item['judul']),
+                subtitle: Text(item['status']),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

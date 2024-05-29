@@ -1,8 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'api_service.dart';
 
 class TambahPage extends StatefulWidget {
   @override
@@ -13,13 +14,15 @@ class _TambahPageState extends State<TambahPage> {
   File? image;
   TextEditingController judulController = TextEditingController();
   TextEditingController statusController = TextEditingController();
+  final ApiService _apiService = ApiService();
 
   Future pickImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+      final imageTemp = File(pickedImage.path);
+      setState(() => image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -33,24 +36,29 @@ class _TambahPageState extends State<TambahPage> {
       return;
     }
 
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('http://192.168.0.222/myapp/add.php'));
-    request.fields['judul'] = judulController.text;
-    request.fields['status'] = statusController.text;
-    request.fields['tanggal'] = DateTime.now().toString();
-    request.files.add(await http.MultipartFile.fromPath('gambar', image!.path));
+    try {
+      String uploadUrl = 'http://192.168.0.222/myapp/add.php';
 
-    var response = await request.send();
+      // Kirim gambar ke endpoint PHP
+      var request = http.MultipartRequest('POST', Uri.parse(uploadUrl));
+      request.files
+          .add(await http.MultipartFile.fromPath('gambar', image!.path));
+      request.fields['judul'] = judulController.text;
+      request.fields['status'] = statusController.text;
 
-    if (response.statusCode == 201) {
-      print('Laporan berhasil ditambahkan');
-      setState(() {
-        image = null;
-        judulController.clear();
-        statusController.clear();
-      });
-    } else {
-      print('Failed to add laporan: ${response.reasonPhrase}');
+      var response = await request.send();
+      if (response.statusCode == 201) {
+        print('Laporan berhasil ditambahkan');
+        setState(() {
+          image = null;
+          judulController.clear();
+          statusController.clear();
+        });
+      } else {
+        print('Gagal menambahkan laporan: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      print('Failed to add laporan: $e');
     }
   }
 

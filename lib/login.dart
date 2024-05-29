@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'api_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,29 +9,25 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final ApiService _apiService = ApiService();
 
   Future<void> login() async {
-    final response = await http.post(
-      Uri.parse('http://192.168.0.222/myapp/login.php'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'username': _usernameController.text,
-        'password': _passwordController.text,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
+    try {
+      final responseData = await _apiService.login(
+        _usernameController.text,
+        _passwordController.text,
+      );
       if (responseData['message'] != null) {
         print('Message: ${responseData['message']}');
         Navigator.pushNamed(context, '/dashboard');
       } else {
         print('Error: ${responseData['error']}');
       }
-    } else {
-      print('Failed to login. Status code: ${response.statusCode}');
+    } catch (e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login failed')),
+      );
     }
   }
 
