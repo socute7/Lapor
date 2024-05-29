@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'api_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DashboardWidget extends StatelessWidget {
   final ApiService _apiService = ApiService();
@@ -70,12 +69,6 @@ class _DashboardPageState extends State<DashboardPage> {
     DashboardWidget(),
     SettingWidget(),
     ProfileWidget(),
-  ];
-
-  static List<String> _appBarTitles = <String>[
-    'Dashboard',
-    'Setting',
-    'Profile',
   ];
 
   void _onItemTapped(int index) {
