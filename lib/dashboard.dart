@@ -21,16 +21,76 @@ class DashboardWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = snapshot.data![index];
               final imagePath = item['imagePath'];
-
-              return ListTile(
-                leading: Image.network(
-                  imagePath,
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Image.network(
+                        imagePath,
+                        width: 300,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      color: Colors.grey[200],
+                      child: Center(
+                        child: Text(
+                          item['judul'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            padding: EdgeInsets.all(8),
+                            color: Colors.grey[200],
+                            child: Center(
+                              child: Text(
+                                item['status'],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            padding: EdgeInsets.all(8),
+                            color: Colors.grey[200],
+                            child: Center(
+                              child: Text(
+                                item['tanggal'],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                title: Text(item['judul']),
-                subtitle: Text(item['status']),
               );
             },
           );

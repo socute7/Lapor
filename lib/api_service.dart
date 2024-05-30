@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 
 class ApiService {
-  static const String _baseUrl = 'http://192.168.0.222/myapp';
+  static const String _baseUrl = 'http://192.168.1.62/myapp';
 
   Future<Map<String, dynamic>> register(
       String username, String password) async {
@@ -70,6 +70,7 @@ class ApiService {
         Map<String, dynamic> dataItem = {
           'judul': item['judul'],
           'status': item['status'],
+          'tanggal': item['tanggal'],
           'imagePath': imagePath,
         };
         data.add(dataItem);

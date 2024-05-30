@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'api_service.dart';
 
 class TambahPage extends StatefulWidget {
@@ -37,26 +36,14 @@ class _TambahPageState extends State<TambahPage> {
     }
 
     try {
-      String uploadUrl = 'http://192.168.0.222/myapp/add.php';
-
-      // Kirim gambar ke endpoint PHP
-      var request = http.MultipartRequest('POST', Uri.parse(uploadUrl));
-      request.files
-          .add(await http.MultipartFile.fromPath('gambar', image!.path));
-      request.fields['judul'] = judulController.text;
-      request.fields['status'] = statusController.text;
-
-      var response = await request.send();
-      if (response.statusCode == 201) {
-        print('Laporan berhasil ditambahkan');
-        setState(() {
-          image = null;
-          judulController.clear();
-          statusController.clear();
-        });
-      } else {
-        print('Gagal menambahkan laporan: ${response.reasonPhrase}');
-      }
+      await _apiService.tambahLaporan(
+          judulController.text, statusController.text, image!);
+      print('Laporan berhasil ditambahkan');
+      setState(() {
+        image = null;
+        judulController.clear();
+        statusController.clear();
+      });
     } catch (e) {
       print('Failed to add laporan: $e');
     }
