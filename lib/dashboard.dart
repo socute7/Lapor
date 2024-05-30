@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 import 'api_service.dart';
 
-class DashboardWidget extends StatelessWidget {
+class DashboardWidget extends StatefulWidget {
+  @override
+  _DashboardWidgetState createState() => _DashboardWidgetState();
+}
+
+class _DashboardWidgetState extends State<DashboardWidget> {
   final ApiService _apiService = ApiService();
+
+  @override
+  void initState() {
+    super.initState();
+    refreshData();
+  }
+
+  Future<void> refreshData() async {
+    try {
+      await _apiService.fetchData();
+      setState(() {});
+    } catch (e) {
+      print('Error refreshing data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

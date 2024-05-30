@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'api_service.dart';
 
 class TambahPage extends StatefulWidget {
@@ -28,22 +30,21 @@ class _TambahPageState extends State<TambahPage> {
   }
 
   Future<void> tambahLaporan() async {
-    if (image == null ||
-        judulController.text.isEmpty ||
-        statusController.text.isEmpty) {
+    if (image == null || judulController.text.isEmpty) {
       print('Please fill all fields');
       return;
     }
 
     try {
+      String status = "pending";
       await _apiService.tambahLaporan(
-          judulController.text, statusController.text, image!);
+        judulController.text,
+        status,
+        image!,
+      );
       print('Laporan berhasil ditambahkan');
-      setState(() {
-        image = null;
-        judulController.clear();
-        statusController.clear();
-      });
+      // Navigate to the dashboard page
+      Navigator.pushReplacementNamed(context, '/dashboard');
     } catch (e) {
       print('Failed to add laporan: $e');
     }
@@ -86,20 +87,6 @@ class _TambahPageState extends State<TambahPage> {
                   controller: judulController,
                   decoration: InputDecoration(
                     hintText: 'Judul Laporan',
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: 300,
-              height: 50,
-              margin: EdgeInsets.only(bottom: 10),
-              color: Colors.grey[300],
-              child: Center(
-                child: TextField(
-                  controller: statusController,
-                  decoration: InputDecoration(
-                    hintText: 'Status',
                   ),
                 ),
               ),
