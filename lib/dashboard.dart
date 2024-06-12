@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/setting.dart';
 import 'api_service.dart';
+import 'profile.dart';
 
 class DashboardWidget extends StatefulWidget {
   @override
@@ -123,18 +125,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 class SettingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Settings'),
-    );
+    return SettingPage();
   }
 }
 
 class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Profile'),
-    );
+    return ProfilePage();
   }
 }
 
