@@ -6,7 +6,7 @@ class ApiService {
   static const String _baseUrl = 'http://192.168.1.11/myapp';
 
   Future<Map<String, dynamic>> register(
-      String username, String password) async {
+      String username, String email, String password) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/register.php'),
       headers: <String, String>{
@@ -14,6 +14,7 @@ class ApiService {
       },
       body: jsonEncode(<String, String>{
         'username': username,
+        'email': email,
         'password': password,
       }),
     );
@@ -41,6 +42,26 @@ class ApiService {
       return json.decode(response.body);
     } else {
       throw Exception('Failed to login');
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword(
+      String email, String newPassword) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/reset_password.php'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'new_password': newPassword,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to reset password');
     }
   }
 

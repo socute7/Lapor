@@ -31,39 +31,65 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void navigateToForgotPassword() {
+    Navigator.pushNamed(context, '/reset_password');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            "assets/images/login.png",
+            height: 100,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.7),
+                  ),
+                  obscureText: true,
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: login,
+                  child: Text('Login'),
+                ),
+                SizedBox(height: 10),
+                TextButton(
+                  onPressed: navigateToForgotPassword,
+                  child: Text('Forgot Password?'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                  child: Text('Don\'t have an account? Register here'),
+                ),
+              ],
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: login,
-              child: Text('Login'),
-            ),
-            SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/register');
-              },
-              child: Text('Don\'t have an account? Register here'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

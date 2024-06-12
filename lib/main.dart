@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/reset_password.dart';
 import 'login.dart';
 import 'register.dart';
+import 'reset_password.dart';
 import 'dashboard.dart';
 import 'setting.dart';
 import 'profile.dart';
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/setting': (context) => SettingPage(),
         '/profile': (context) => ProfilePage(),
         '/tambah': (context) => TambahPage(),
+        '/reset_password': (context) => ResetPasswordPage(),
       },
     );
   }

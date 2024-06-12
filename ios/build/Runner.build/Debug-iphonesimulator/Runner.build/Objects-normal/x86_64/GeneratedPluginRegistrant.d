@@ -1,0 +1,20 @@
+dependencies: \
+  /Users/ajidarmasaputra/Documents/myapps/ios/Runner/GeneratedPluginRegistrant.m \
+  /Users/ajidarmasaputra/Documents/myapps/ios/Runner/GeneratedPluginRegistrant.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Modules/module.modulemap \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/Flutter.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterAppDelegate.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterMacros.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlugin.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterBinaryMessenger.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterChannels.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCodecs.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlatformViews.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterTexture.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCallbackCache.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterDartProject.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngine.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngineGroup.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterHeadlessDartRunner.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
+  /Users/ajidarmasaputra/Documents/myapps/ios/build/Debug-iphonesimulator/Flutter.framework/Headers/FlutterViewController.h
