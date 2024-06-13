@@ -30,8 +30,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         );
         if (responseData['message'] != null) {
           print('Password Updated: ${responseData['message']}');
-          Navigator.pop(
-              context); // Kembali ke halaman sebelumnya setelah sukses mengganti password
+          Navigator.pop(context);
         } else {
           print('Error: ${responseData['error']}');
           ScaffoldMessenger.of(context).showSnackBar(
