@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapps/setting.dart';
 import 'api_service.dart';
 import 'profile.dart';
+import 'detail_page.dart';
 
 class DashboardWidget extends StatefulWidget {
   @override
@@ -46,91 +47,101 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 itemBuilder: (context, index) {
                   final item = snapshot.data![index];
                   final imagePath = item['imagePath'];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      elevation: 5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(15.0)),
-                            child: Image.network(
-                              imagePath,
-                              width: double.infinity,
-                              height: 150,
-                              fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(item: item),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        elevation: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(15.0)),
+                              child: Image.network(
+                                imagePath,
+                                width: double.infinity,
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    item['judul'],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      item['judul'],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            item['status'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                  SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              item['status'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            item['tanggal'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              item['tanggal'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
