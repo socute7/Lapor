@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'package:myapps/login.dart';
+import 'package:provider/provider.dart';
+import 'api_service.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final apiService = Provider.of<ApiService>(context);
+    final String username = apiService.currentUser?['username'] ?? 'User';
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -15,7 +20,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'John Doe',
+              username,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),

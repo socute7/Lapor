@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/dashboard.dart';
+import 'package:provider/provider.dart';
 import 'api_service.dart';
+import 'profile.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,34 +12,33 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final ApiService _apiService = ApiService();
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     try {
-      final responseData = await _apiService.login(
+      final apiService = Provider.of<ApiService>(context, listen: false);
+      final responseData = await apiService.login(
         _usernameController.text,
         _passwordController.text,
       );
       if (responseData['message'] != null) {
-        print('Message: ${responseData['message']}');
         if (responseData['role'] == 'admin') {
           Navigator.pushNamed(context, '/admin_dashboard');
         } else if (responseData['role'] == 'user') {
-          Navigator.pushNamed(context, '/dashboard');
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => DashboardPage()),
+          );
         } else {
-          print('Error: Invalid role');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Invalid role')),
           );
         }
       } else {
-        print('Error: ${responseData['error']}');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(responseData['error'])),
         );
       }
     } catch (e) {
-      print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Login failed')),
       );
@@ -84,19 +86,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: login,
+                  onPressed: () => login(context),
                   child: Text('Login'),
                 ),
                 SizedBox(height: 10),
                 TextButton(
                   onPressed: navigateToForgotPassword,
                   child: Text('Forgot Password?'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: Text('Don\'t have an account? Register here'),
                 ),
               ],
             ),

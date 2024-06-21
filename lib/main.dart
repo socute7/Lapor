@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapps/admin/admin_dashboard.dart';
 import 'package:myapps/admin/admin_settings.dart';
+import 'package:provider/provider.dart';
 import 'package:myapps/reset_password.dart';
+import 'api_service.dart';
 import 'login.dart';
 import 'register.dart';
 import 'dashboard.dart';
@@ -10,7 +12,12 @@ import 'profile.dart';
 import 'tambah.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ApiService(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

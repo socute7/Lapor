@@ -14,7 +14,7 @@ class AdminProfile extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            'John Doe',
+            'Admin',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),

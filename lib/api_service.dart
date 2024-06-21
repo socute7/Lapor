@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
-class ApiService {
+class ApiService extends ChangeNotifier {
   static const String _baseUrl = 'http://192.168.1.5/myapp';
+  Map<String, dynamic>? _currentUser;
+
+  Map<String, dynamic>? get currentUser => _currentUser;
 
   Future<Map<String, dynamic>> register(
       String username, String email, String password) async {
@@ -39,7 +43,10 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      Map<String, dynamic> responseData = json.decode(response.body);
+      _currentUser = responseData; // Simpan data pengguna ke _currentUser
+      notifyListeners();
+      return _currentUser!;
     } else {
       throw Exception('Failed to login');
     }
