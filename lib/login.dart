@@ -19,9 +19,21 @@ class _LoginPageState extends State<LoginPage> {
       );
       if (responseData['message'] != null) {
         print('Message: ${responseData['message']}');
-        Navigator.pushNamed(context, '/dashboard');
+        if (responseData['role'] == 'admin') {
+          Navigator.pushNamed(context, '/admin_dashboard');
+        } else if (responseData['role'] == 'user') {
+          Navigator.pushNamed(context, '/dashboard');
+        } else {
+          print('Error: Invalid role');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Invalid role')),
+          );
+        }
       } else {
         print('Error: ${responseData['error']}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(responseData['error'])),
+        );
       }
     } catch (e) {
       print('Error: $e');

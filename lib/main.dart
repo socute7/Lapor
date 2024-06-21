@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapps/admin/admin_dashboard.dart';
+import 'package:myapps/admin/admin_settings.dart';
 import 'package:myapps/reset_password.dart';
 import 'login.dart';
 import 'register.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/tambah': (context) => TambahPage(),
         '/reset_password': (context) => ResetPasswordPage(),
+        '/admin_dashboard': (context) => AdminDashboard(),
+        '/admin_settings': (context) => AdminSettings(),
       },
     );
   }
