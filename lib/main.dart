@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:myapps/admin/admin_dashboard.dart';
-import 'package:myapps/admin/admin_settings.dart';
 import 'package:provider/provider.dart';
-import 'package:myapps/reset_password.dart';
 import 'api_service.dart';
 import 'login.dart';
 import 'register.dart';
 import 'dashboard.dart';
 import 'setting.dart';
 import 'profile.dart';
-import 'tambah.dart';
+import 'reset_password.dart';
+import 'admin/admin_dashboard.dart';
+import 'admin/admin_settings.dart';
+import 'tambah.dart'; // Import file TambahPage.dart
 
 void main() {
   runApp(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => DashboardPage(),
         '/setting': (context) => SettingPage(),
         '/profile': (context) => ProfilePage(),
-        '/tambah': (context) => TambahPage(),
+        '/tambah': (context) => TambahPage(title: 'Tambah Laporan'),
         '/reset_password': (context) => ResetPasswordPage(),
         '/admin_dashboard': (context) => AdminDashboard(),
         '/admin_settings': (context) => AdminSettings(),

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 
 class ApiService extends ChangeNotifier {
-  static const String _baseUrl = 'http://192.168.1.5/myapp';
+  static const String _baseUrl = 'http://192.168.1.6/myapp';
   Map<String, dynamic>? _currentUser;
 
   Map<String, dynamic>? get currentUser => _currentUser;
@@ -43,8 +43,7 @@ class ApiService extends ChangeNotifier {
     );
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> responseData = json.decode(response.body);
-      _currentUser = responseData; // Simpan data pengguna ke _currentUser
+      _currentUser = json.decode(response.body);
       notifyListeners();
       return _currentUser!;
     } else {
@@ -72,11 +71,16 @@ class ApiService extends ChangeNotifier {
     }
   }
 
-  Future<void> tambahLaporan(String judul, String status, File image) async {
+  Future<void> tambahLaporan(String judul, String lokasi, String detail,
+      String status, File image) async {
     var request = http.MultipartRequest('POST', Uri.parse('$_baseUrl/add.php'));
+
     request.fields['judul'] = judul;
+    request.fields['lokasi'] = lokasi;
+    request.fields['detail'] = detail;
     request.fields['status'] = status;
     request.fields['tanggal'] = DateTime.now().toString();
+
     request.files.add(await http.MultipartFile.fromPath('gambar', image.path));
 
     var response = await request.send();
