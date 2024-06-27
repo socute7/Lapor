@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Tambah Laporan',
       theme: ThemeData(
         primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const TambahPage(title: 'Tambah Laporan'),
     );
@@ -176,64 +177,63 @@ class _TambahPageState extends State<TambahPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                  controller: judulController,
-                  decoration: InputDecoration(
-                    labelText: 'Judul Laporan',
-                    border: OutlineInputBorder(),
+              TextField(
+                controller: judulController,
+                decoration: InputDecoration(
+                  labelText: 'Judul Laporan',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: lokasiController,
+                decoration: InputDecoration(
+                  labelText: 'Lokasi Laporan',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.my_location),
+                    onPressed: _getCurrentLocation,
                   ),
                 ),
               ),
               SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                  controller: lokasiController,
-                  decoration: InputDecoration(
-                    labelText: 'Lokasi Laporan',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _getCurrentLocation,
-                child: Text('Get Current Location'),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                  maxLines: 5,
-                  controller: detailController,
-                  decoration: InputDecoration(
-                    labelText: 'Detail Laporan',
-                    border: OutlineInputBorder(),
-                  ),
+              TextField(
+                maxLines: 5,
+                controller: detailController,
+                decoration: InputDecoration(
+                  labelText: 'Detail Laporan',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.grey[200],
                 ),
               ),
               SizedBox(height: 20),
               GestureDetector(
                 onTap: pickImage,
                 child: Container(
-                  width: 300,
+                  width: double.infinity,
                   height: 200,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: image == null
-                      ? Icon(
-                          Icons.camera_alt,
-                          size: 50,
-                          color: Colors.grey[700],
+                      ? Center(
+                          child: Icon(
+                            Icons.camera_alt,
+                            size: 50,
+                            color: Colors.grey[700],
+                          ),
                         )
                       : Image.file(
                           image!,
@@ -242,29 +242,25 @@ class _TambahPageState extends State<TambahPage> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Foto Laporan'),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: pickImage,
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: ElevatedButton(
-                  onPressed: tambahLaporan,
-                  child: Text('Tambahkan Laporan'),
+              Center(
+                child: Text(
+                  'Foto Laporan',
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
               SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: tambahLaporan,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  backgroundColor: Color.fromARGB(255, 60, 141, 182),
+                  foregroundColor: Colors.white,
+                ),
+                child: Text(
+                  'Tambahkan Laporan',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ],
           ),
         ),

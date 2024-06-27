@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 
 class ApiService extends ChangeNotifier {
-  static const String _baseUrl = 'http://192.168.1.6/myapp';
+  static const String _baseUrl = 'http://192.168.1.102/myapp';
   Map<String, dynamic>? _currentUser;
 
   Map<String, dynamic>? get currentUser => _currentUser;
@@ -103,6 +103,8 @@ class ApiService extends ChangeNotifier {
           'judul': item['judul'],
           'status': item['status'],
           'tanggal': item['tanggal'],
+          'detail': item['detail'],
+          'lokasi': item['lokasi'],
           'imagePath': imagePath,
         };
         data.add(dataItem);

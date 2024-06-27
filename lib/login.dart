@@ -48,6 +48,10 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pushNamed(context, '/reset_password');
   }
 
+  void navigateToRegister() {
+    Navigator.pushNamed(context, '/register');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   onPressed: navigateToForgotPassword,
                   child: Text('Forgot Password?'),
+                ),
+                SizedBox(height: 10),
+                TextButton(
+                  onPressed: navigateToRegister,
+                  child: Text('Belum punya akun? daftar disini!!'),
                 ),
               ],
             ),

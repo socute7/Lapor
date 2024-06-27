@@ -121,7 +121,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                height: 200, // Fix the height of the GridView
+                height: 200,
                 child: GridView.count(
                   crossAxisCount: 4,
                   crossAxisSpacing: 10,
